@@ -1,9 +1,18 @@
 from socket  import *
-from constCS import * #-
+from constCS import *
 
 s = socket(AF_INET, SOCK_STREAM)
-s.connect((HOST, PORT)) # connect to server (block until accepted)
-s.send(str.encode('Hello, world'))  # send some data
-data = s.recv(1024)     # receive the response
-print (bytes.decode(data))            # print the result
-s.close()               # close the connection
+s.connect((HOST, PORT))
+
+data = s.recv(1024)
+print(bytes.decode(data))
+
+while True:
+    cmd = input()
+    if cmd == 'sair': break
+
+    s.send(str.encode(cmd))
+    data = s.recv(1024)
+    print(bytes.decode(data))
+    
+s.close()
